@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐁𝐎𝐇𝐃𝐀𝐍|𝟑𝟎𝟐 · КРІВАВЕ ПОРТФОЛІО</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..600;1,200..600&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --blood-dark: #0d0507;
+            --blood-mid: #1a0b0e;
+            --blood-accent: #8f1c1c;
+            --blood-bright: #c0392b;
+            --blood-drip: #a31515;
+            --blood-text: #f0d5d5;
+            --blood-muted: #c49090;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--blood-dark);
+            font-family: "Crimson Pro", serif;
+            color: var(--blood-text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* === ANIMATED BLOOD BACKGROUND === */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(80,10,10,0.25) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(80,10,10,0.25) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* === DRIPPING BLOOD BORDER TOP === */
+        .drip-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .drip-top svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* === BLOOD SPLATTER CANVAS === */
+        #bloodCanvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.18;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* === HEADER === */
+        .header-blood {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--blood-accent);
+            padding-bottom: 1rem;
+            margin-bottom: 3rem;
+            font-family: "Oswald", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .header-blood h1 {
+            font-size: 2rem;
+            color: var(--blood-bright);
+            text-shadow: 3px 3px 0 #1a0000, 0 0 20px #8f1c1c;
+            font-weight: 600;
+        }
+
+        .header-drops {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .header-drops span {
+            display: inline-block;
+            width: 12px;
+            height: 18px;
+            background: var(--blood-drip);
+            border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+            animation: drip-anim var(--d, 2s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        @keyframes drip-anim {
+            0%,100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(8px) scaleY(1.3); filter: brightness(1.4); }
+        }
+
+        /* === MAIN GRID === */
+        .grid-blood {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* === LEFT PANEL === */
+        .left-panel-blood {
+            background: linear-gradient(160deg, #1e0d10, #150b0d);
+            border: 2px solid #6b1c1c;
+            border-radius: 40px 8px 40px 8px;
+            box-shadow:
+                0 0 0 1px #3a0d0d,
+                0 20px 40px -10px rgba(180,0,0,0.5),
+                inset 0 0 30px rgba(80,0,0,0.3);
+            padding: 2.5rem 2rem;
+            position: sticky;
+            top: 90px;
+        }
+
+        /* blood vein border animation */
+        .left-panel-blood::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 40px 8px 40px 8px;
+            background: linear-gradient(180deg, #8b1c1c, #3a0808, #8b1c1c, #3a0808);
+            background-size: 100% 400%;
+            z-index: -1;
+            animation: vein-pulse 4s linear infinite;
+        }
+
+        @keyframes vein-pulse {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 400%; }
+        }
+
+        .portrait-blood {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .portrait-icon {
+            font-size: 7rem;
+            color: #c44;
+            background: radial-gradient(circle, #2e1517, #160a0c);
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            border: 3px solid #8f2020;
+            box-shadow:
+                0 0 0 6px #1a0a0c,
+                0 0 30px #b02020,
+                0 0 60px rgba(150,0,0,0.4);
+            animation: skull-breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes skull-breathe {
+            0%,100% { box-shadow: 0 0 0 6px #1a0a0c, 0 0 30px #b02020, 0 0 60px rgba(150,0,0,0.4); }
+            50% { box-shadow: 0 0 0 8px #200c0e, 0 0 50px #d03030, 0 0 90px rgba(200,0,0,0.6); }
+        }
+
+        /* blood drips from portrait */
+        .portrait-drips {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: -0.3rem 0 0.8rem;
+        }
+
+        .portrait-drips .d {
+            width: 8px;
+            background: linear-gradient(to bottom, #8f1c1c, #5a0d0d);
+            border-radius: 0 0 50% 50%;
+            animation: long-drip var(--h, 1.5s) ease-in-out infinite;
+            animation-delay: var(--dl, 0s);
+        }
+
+        @keyframes long-drip {
+            0% { height: 4px; opacity: 0.6; }
+            60% { height: var(--len, 30px); opacity: 1; }
+            100% { height: 4px; opacity: 0.6; }
+        }
+
+        .portrait-blood h2 {
+            font-size: 2.6rem;
+            font-family: "Oswald", sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #edc9c9;
+            text-shadow: 2px 2px 0 #5f1818, 0 0 20px rgba(180,0,0,0.5);
+        }
+
+        .blood-tagline {
+            color: #b76b6b;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            padding-top: 0.6rem;
+            margin-top: 0.4rem;
+            border-top: 1px dashed #6b2626;
+        }
+
+        .fact-blood { margin-top: 2rem; }
+
+        .fact-item-blood {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            border-left: 3px solid var(--blood-accent);
+            padding-left: 1rem;
+            font-size: 1.15rem;
+            transition: 0.2s;
+        }
+
+        .fact-item-blood:hover {
+            border-left-color: var(--blood-bright);
+            padding-left: 1.4rem;
+        }
+
+        .fact-item-blood i {
+            width: 1.8rem;
+            color: #cb5e5e;
+            font-size: 1.5rem;
+        }
+
+        .fact-item-blood span {
+            color: #dd9a9a;
+            font-family: "Oswald", sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .telegram-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            background: linear-gradient(135deg, #2f1518, #1e0d10);
+            border: 2px solid #a53f3f;
+            border-radius: 40px;
+            padding: 0.8rem 1.5rem;
+            margin: 1.5rem 0 0.5rem;
+            font-size: 1.2rem;
+            color: #f0c0c0;
+            text-decoration: none;
+            font-family: "Oswald", sans-serif;
+            letter-spacing: 2px;
+            width: 100%;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .telegram-button:hover {
+            background: linear-gradient(135deg, #4f1f24, #3a1218);
+            border-color: #e06b6b;
+            box-shadow: 0 0 25px rgba(180,0,0,0.6), inset 0 0 10px rgba(180,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .social-blood {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+        }
+
+        .social-blood a {
+            color: #bd5a5a;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .social-blood a:hover {
+            color: #e66262;
+            transform: scale(1.2) rotate(-5deg);
+            text-shadow: 0 0 20px #f33;
+        }
+
+        hr.blood-hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b43b3b, transparent);
+            margin: 1.2rem 0;
+        }
+
+        /* === RIGHT PANEL === */
+        .right-panel-blood {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* === BIO CARD === */
+        .bio-card-blood {
+            background: linear-gradient(135deg, #1d1113, #140d0f);
+            border: 2px solid #712525;
+            border-radius: 20px 0 20px 0;
+            padding: 3rem 2.5rem;
+            box-shadow: 10px 10px 0 #200808, 0 0 40px rgba(100,0,0,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bio-card-blood::before {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(140,0,0,0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .bio-name-blood {
+            font-size: 4.5rem;
+            font-family: "Oswald", sans-serif;
+            font-weight: 600;
+            line-height: 1.1;
+            color: #dcd3d3;
+            text-transform: uppercase;
+            text-shadow: 6px 6px 0 #5b1a1a, 0 0 40px rgba(200,0,0,0.3);
+            margin-bottom: 0.8rem;
+            letter-spacing: 4px;
+            animation: name-flicker 6s ease-in-out infinite;
+        }
+
+        @keyframes name-flicker {
+            0%,90%,100% { opacity: 1; }
+            92% { opacity: 0.85; text-shadow: 6px 6px 0 #5b1a1a, 0 0 60px rgba(255,0,0,0.5); }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+        }
+
+        .drip-deco {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            font-size: 1.1rem;
+            color: #a14040;
+        }
+
+        .drip-deco i { animation: drip 2.5s ease-in-out infinite; }
+        .drip-deco i:nth-child(2) { animation-delay: 0.4s; }
+        .drip-deco i:nth-child(3) { animation-delay: 0.8s; }
+        .drip-deco i:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes drip {
+            0%,100% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(6px); opacity: 1; filter: brightness(1.5); }
+        }
+
+        /* === MUSIC PLAYER === */
+        .blood-player-wrap {
+            background: linear-gradient(160deg, #1f1113, #160c0e);
+            border: 3px solid #9b3d3d;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 40px rgba(130,0,0,0.4), inset 0 0 20px rgba(80,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blood-player-wrap::before {
+            content: 'NOW PLAYING';
+            position: absolute;
+            top: 0.6rem; right: 1rem;
+            font-family: "Oswald", sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #7a2020;
+        }
+
+        .player-track-name {
+            font-family: "Oswald", sans-serif;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            color: #f0c0c0;
+            text-align: center;
+            margin-bottom: 0.3rem;
+            text-shadow: 2px 2px 0 #4a0d0d;
+        }
+
+        .player-artist {
+            font-family: "Oswald", sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: #9a5050;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Visualizer bars */
+        .visualizer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+            height: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .bar {
+            width: 6px;
+            background: linear-gradient(to top, #8b1c1c, #e04040);
+            border-radius: 3px 3px 0 0;
+            animation: bar-dance var(--spd, 0.8s) ease-in-out infinite alternate;
+            animation-delay: var(--del, 0s);
+            transform-origin: bottom;
+        }
+
+        .bar.paused { animation-play-state: paused !important; height: 4px !important; }
+
+        @keyframes bar-dance {
+            0% { transform: scaleY(0.1); }
+            100% { transform: scaleY(var(--max, 1)); }
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .player-btn {
+            background: linear-gradient(135deg, #3a1a1e, #22100e);
+            border: 2px solid #9e3636;
+            color: #f3bebe;
+            border-radius: 50px;
+            padding: 0.9rem 2.5rem;
+            font-family: "Oswald", sans-serif;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.25s;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .player-btn:hover {
+            background: linear-gradient(135deg, #5a2025, #3a1218);
+            border-color: #e06262;
+            box-shadow: 0 0 30px rgba(200,0,0,0.6);
+            transform: scale(1.04);
+        }
+
+        .player-btn:active { transform: scale(0.97); }
+
+        /* progress bar */
+        .progress-wrap {
+            margin-top: 1.2rem;
+            background: #2a1012;
+            border-radius: 10px;
+            height: 6px;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #5a1a1a;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7a1515, #c04040);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-family: "Oswald", sans-serif;
+            font-size: 0.85rem;
+            color: #7a3a3a;
+            margin-top: 0.4rem;
+            letter-spacing: 2px;
+        }
+
+        .volume-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .volume-row i { color: #9a3a3a; font-size: 1.1rem; }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            flex: 1;
+            height: 4px;
+            background: #3a1a1a;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #c04040;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px #c04040;
+        }
+
+        /* === PROJECTS === */
+        .section-title {
+            font-family: "Oswald", sans-serif;
+            font-size: 1rem;
+            letter-spacing: 5px;
+            color: #a14b4b;
+            text-transform: uppercase;
+            padding-left: 1rem;
+            border-left: 4px solid var(--blood-accent);
+            margin-bottom: 1rem;
+        }
+
+        .project-grid-blood {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.4rem;
+        }
+
+        .project-blood-item {
+            background: linear-gradient(135deg, #221516, #1a0f10);
+            border: 2px solid #6e2a2a;
+            border-radius: 16px 0 16px 0;
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: 0.25s;
+            box-shadow: 5px 5px 0 #2a0d0d;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-blood-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(150,0,0,0.1), transparent 60%);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .project-blood-item:hover::after { opacity: 1; }
+
+        .project-blood-item:hover {
+            background: linear-gradient(135deg, #2f191c, #221014);
+            border-color: #b45757;
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0 #4f1616;
+        }
+
+        .project-blood-item i {
+            font-size: 3rem;
+            color: #b35454;
+            margin-bottom: 0.7rem;
+            display: block;
+        }
+
+        .project-blood-item h4 {
+            font-size: 1.3rem;
+            font-family: "Oswald", sans-serif;
+            text-transform: uppercase;
+            color: #f2bcbc;
+            letter-spacing: 2px;
+        }
+
+        /* === TESTIMONIAL === */
+        .testimonial-blood {
+            background: linear-gradient(135deg, #1b0f11, #130a0c);
+            border: 3px solid #702626;
+            border-radius: 30px 0 30px 0;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-blood p {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #f0cdcd;
+            font-family: "Oswald", sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* === FOOTER === */
+        .footer-blood {
+            margin-top: 4rem;
+            border-top: 3px solid #6d2828;
+            padding-top: 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            color: #a15353;
+            flex-wrap: wrap;
+            font-family: "Oswald", sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .footer-blood a {
+            color: #c98484;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-blood a:hover { color: #e08080; text-shadow: 0 0 15px #c00; }
+
+        /* === BLOOD DRIP ANIMATION AT TOP === */
+        .top-drips {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: space-around;
+            z-index: 998;
+            pointer-events: none;
+        }
+
+        .top-drip {
+            width: 14px;
+            background: linear-gradient(to bottom, #8b0000, #6a0000);
+            border-radius: 0 0 50% 50%;
+            animation: top-drip-fall var(--spd2, 3s) ease-in infinite;
+            animation-delay: var(--dl2, 0s);
+            opacity: 0;
+        }
+
+        @keyframes top-drip-fall {
+            0% { height: 0; opacity: 0; }
+            10% { opacity: 1; }
+            40% { height: var(--len2, 60px); opacity: 1; }
+            80% { height: var(--len2, 60px); opacity: 0.8; }
+            100% { height: var(--len2, 60px); opacity: 0; }
+        }
+
+        /* blood splat cursor effect */
+        .splat {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 1.5rem;
+            color: #a00;
+            animation: splat-fade 0.8s forwards;
+        }
+
+        @keyframes splat-fade {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        @media (max-width: 900px) {
+            .grid-blood { grid-template-columns: 1fr; }
+            .bio-name-blood { font-size: 3.2rem; }
+            .left-panel-blood { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DRIPPING TOP BORDER -->
+    <div class="top-drips" id="topDrips"></div>
+
+    <div class="container">
+
+
+        <div class="grid-blood">
+            <!-- LEFT PANEL -->
+            <div class="left-panel-blood">
+                <div class="portrait-blood">
+                    <div class="portrait-icon">
+                        <i class="fa-solid fa-skull"></i>
+                    </div>
+                    <div class="portrait-drips">
+                        <div class="d" style="--h:2s;--dl:0s;--len:25px"></div>
+                        <div class="d" style="--h:2.4s;--dl:0.3s;--len:40px"></div>
+                        <div class="d" style="--h:1.8s;--dl:0.6s;--len:20px"></div>
+                        <div class="d" style="--h:2.2s;--dl:0.1s;--len:35px"></div>
+                        <div class="d" style="--h:2.6s;--dl:0.8s;--len:28px"></div>
+                    </div>
+                    <h2>𝐁𝐎𝐇𝐃𝐀𝐍|𝟑𝟎𝟐</h2>
+                    <div class="blood-tagline">CODING · BLOOD · CHAOS</div>
+                </div>
+
+                <div class="fact-blood">
+                    <div class="fact-item-blood">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>АНОНІМНО</span>
+                    </div>
+                    <div class="fact-item-blood">
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <span>16 РОКІВ</span>
+                    </div>
+                    <div class="fact-item-blood">
+                        <i class="fa-solid fa-code"></i>
+                        <span>CODING</span>
+                    </div>
+                    <div class="fact-item-blood">
+                        <i class="fa-solid fa-comments"></i>
+                        <span>UA / EN</span>
+                    </div>
+                </div>
+
+                <a href="https://t.me/codeelite" target="_blank" class="telegram-button">
+                    <i class="fa-brands fa-telegram"></i> @codeelite
+                </a>
+
+                <div class="social-blood">
+                    <a href="#"><i class="fa-brands fa-behance"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://t.me/codeelite" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+
+                <hr class="blood-hr">
+                <div class="drip-deco">
+                    <i class="fa-solid fa-droplet"></i>
+                    <i class="fa-solid fa-droplet"></i>
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="right-panel-blood">
+
+                <!-- NAME CARD -->
+                <div class="bio-card-blood">
+                    <div class="bio-name-blood">𝐁𝐎𝐇𝐃𝐀𝐍|𝟑𝟎𝟐</div>
+                    <div class="drip-deco">
+                        <i class="fa-solid fa-droplet"></i>
+                        <i class="fa-solid fa-droplet"></i>
+                        <i class="fa-solid fa-droplet"></i>
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-blood">
+            <span><i class="fa-solid fa-droplet"></i> 𝐁𝐎𝐇𝐃𝐀𝐍 · 2026 <i class="fa-solid fa-droplet"></i></span>
+            <span><a href="https://t.me/codeelite" target="_blank"><i class="fa-brands fa-telegram"></i> @codeelite</a></span>
+        </div>
+    </div>
+
+    <script>
+    // ===== TOP DRIP GENERATOR =====
+    const topDrips = document.getElementById('topDrips');
+    for (let i = 0; i < 22; i++) {
+        const d = document.createElement('div');
+        d.className = 'top-drip';
+        const spd = (2 + Math.random() * 4).toFixed(1) + 's';
+        const dl = (Math.random() * 5).toFixed(1) + 's';
+        const len = Math.floor(30 + Math.random() * 80) + 'px';
+        d.style.cssText = `--spd2:${spd};--dl2:${dl};--len2:${len}`;
+        topDrips.appendChild(d);
+    }
+
+    // ===== BLOOD SPLAT ON CLICK =====
+    document.addEventListener('click', (e) => {
+        const s = document.createElement('div');
+        s.className = 'splat';
+        s.innerHTML = '🩸';
+        s.style.left = (e.clientX - 12) + 'px';
+        s.style.top = (e.clientY - 12) + 'px';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 800);
+    });
+    </script>
+</body>
+</html>
